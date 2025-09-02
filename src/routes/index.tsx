@@ -1,16 +1,19 @@
 import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { role } from "@/constants/role";
-import Login from "@/pages/auth/Login";
-import Register from "@/pages/auth/Register";
 import Home from "@/pages/Home";
-import Unauthorized from "@/pages/Unauthorized";
 import type { IRole } from "@/types";
 import { generateRoutes } from "@/utils/generatingRoute";
 import { withAuth } from "@/utils/withAuth";
 import { createBrowserRouter, Navigate } from "react-router";
 import { patientSidebarRoute } from "./patientSidebarRoute";
 import { doctorSidebarRoute } from "./doctorSidebarRoute";
+import { lazy } from "react";
+
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const Login = lazy(() => import("@/pages/auth/Login"));
+const Register = lazy(() => import("@/pages/auth/Register"));
+const Unauthorized = lazy(() => import("@/pages/Unauthorized"));
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,10 @@ const router = createBrowserRouter([
   {
     path: "/unauthorized",
     Component: Unauthorized
+  },
+  {
+    path: "*",
+    Component: NotFound
   }
 ]);
 

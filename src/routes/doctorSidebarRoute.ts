@@ -1,6 +1,6 @@
 import { lazy } from "react";
 
-const DoctorList = lazy(() => import("@/pages/DoctorList"));
+const DoctorList = lazy(() => import("@/pages/patient/DoctorList"));
 
 export const doctorSidebarRoute = [
     {
