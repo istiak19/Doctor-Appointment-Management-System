@@ -15,14 +15,14 @@ export const patientApi = baseApi.injectEndpoints({
                 params
             })
         }),
-        login: builder.mutation({
-            query: (userInfo) => ({
-                url: "/auth/login",
+        createAppointment: builder.mutation({
+            query: (appointmentInfo) => ({
+                url: "/appointments",
                 method: "POST",
-                data: userInfo
+                data: appointmentInfo
             })
         }),
     })
 });
 
-export const { useGetSpecializationsQuery, useGetDoctorsQuery, useLoginMutation } = patientApi;
+export const { useGetSpecializationsQuery, useGetDoctorsQuery, useCreateAppointmentMutation } = patientApi;

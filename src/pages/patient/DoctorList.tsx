@@ -2,20 +2,11 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import {
-    useGetDoctorsQuery,
-    useGetSpecializationsQuery,
-} from "@/redux/features/patient/patient.api";
-import { useNavigate } from "react-router";
+import { useGetDoctorsQuery, useGetSpecializationsQuery } from "@/redux/features/patient/patient.api";
 import { X } from "lucide-react";
+import BookAppointment from "@/components/modules/BookAppointment";
 
 const defaultDoctorImg =
     "https://plus.unsplash.com/premium_photo-1658506671316-0b293df7c72b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZG9jdG9yfGVufDB8fDB8fHww";
@@ -33,7 +24,6 @@ const DoctorList = () => {
         specialization,
     });
 
-    const navigate = useNavigate();
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedSearch(search);
@@ -111,12 +101,7 @@ const DoctorList = () => {
                         <p className="text-sm text-gray-500">
                             Experience: {doctor.experience || 0} years
                         </p>
-                        <Button
-                            className="mt-3 w-full bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
-                            onClick={() => navigate(`/patient/appointment/${doctor.id}`)}
-                        >
-                            Book Appointment
-                        </Button>
+                        <BookAppointment doctor={doctor} />
                     </Card>
                 ))}
             </div>
