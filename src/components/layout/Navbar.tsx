@@ -19,7 +19,7 @@ const Navbar = () => {
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex gap-6">
+                <div className="hidden md:flex items-center gap-6">
                     <Link to="/" className="hover:underline">
                         Home
                     </Link>
