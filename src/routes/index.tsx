@@ -1,6 +1,7 @@
 import App from "@/App";
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
+import DoctorList from "@/pages/DoctorList";
 import Home from "@/pages/Home";
 import { createBrowserRouter } from "react-router";
 
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home
+      },
+      {
+        path:"/patient/dashboard",
+        Component: DoctorList
       }
     ]
   },

@@ -1,10 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 
 const Home = () => {
     return (
         <div className="min-h-screen bg-gray-50">
+            <Helmet>
+                <title>Doctor Appointment</title>
+                <meta name="description" content="Welcome to Doctor Appointment home page" />
+            </Helmet>
+
             {/* Hero Section */}
             <section className="bg-blue-500 text-white py-20">
                 <div className="container mx-auto px-6 text-center">
