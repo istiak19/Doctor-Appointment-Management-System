@@ -2,18 +2,20 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useDoctorRegisterMutation, usePatientRegisterMutation } from "@/redux/features/auth/auth.api";
 
 const patientSchema = z.object({
     name: z.string().min(2, "Name required"),
     email: z.string().email("Invalid email"),
     password: z.string().min(6, "Password too short"),
     photo_url: z.string().url().optional(),
+    role: z.enum(["PATIENT"]),
 });
 
 const doctorSchema = z.object({
@@ -22,13 +24,17 @@ const doctorSchema = z.object({
     password: z.string().min(6, "Password too short"),
     specialization: z.string().min(2, "Specialization required"),
     photo_url: z.string().url().optional(),
+    role: z.enum(["DOCTOR"]),
 });
 
 type PatientForm = z.infer<typeof patientSchema>;
 type DoctorForm = z.infer<typeof doctorSchema>;
 
 const RegisterForm = () => {
+    const navigate = useNavigate();
     const [tab, setTab] = useState<"PATIENT" | "DOCTOR">("PATIENT");
+    const [patientRegister] = usePatientRegisterMutation();
+    const [doctorRegister] = useDoctorRegisterMutation();
 
     const patientForm = useForm<PatientForm>({
         resolver: zodResolver(patientSchema),
@@ -37,6 +43,7 @@ const RegisterForm = () => {
             email: "",
             password: "",
             photo_url: "",
+            role: "PATIENT",
         },
     });
 
@@ -48,15 +55,34 @@ const RegisterForm = () => {
             password: "",
             specialization: "",
             photo_url: "",
+            role: "DOCTOR",
         },
     });
 
-    const onSubmitPatient = (data: PatientForm) => {
-        console.log("Patient Register:", data);
+    const onSubmitPatient = async (data: PatientForm) => {
+        try {
+            console.log("Patient Register:", data);
+            const res = await patientRegister(data).unwrap();
+            console.log(res)
+            if (res.success === true) {
+                navigate("/", { state: data.email })
+            };
+        } catch (error) {
+            console.log(error);
+        }
     };
 
-    const onSubmitDoctor = (data: DoctorForm) => {
-        console.log("Doctor Register:", data);
+    const onSubmitDoctor = async (data: DoctorForm) => {
+        try {
+            console.log("Doctor Register:", data);
+            const res = await doctorRegister(data).unwrap();
+            console.log(res)
+            if (res.success === true) {
+                navigate("/", { state: data.email })
+            };
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (

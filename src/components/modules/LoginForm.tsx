@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import {
     Form,
@@ -20,6 +21,7 @@ import {
     SelectContent,
     SelectItem,
 } from "@/components/ui/select";
+import { useLoginMutation } from "@/redux/features/auth/auth.api";
 
 const loginSchema = z.object({
     email: z.string().email("Invalid email"),
@@ -39,8 +41,23 @@ const LoginForm = () => {
         },
     });
 
-    const onSubmit = (data: LoginForm) => {
-        console.log("Login data:", data);
+    const [login] = useLoginMutation();
+    const navigate = useNavigate();
+
+    const onSubmit = async (data: LoginForm) => {
+        try {
+            const res: any = await login(data).unwrap();
+            if (res?.data?.token) {
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("user", JSON.stringify(res.data.user));
+                console.log("Login successful:", res.data.user);
+            }
+            if (res.success === true) {
+                navigate("/")
+            };
+        } catch (error: any) {
+            console.error("Login failed:", error.data?.message || error.message);
+        }
     };
 
     return (
