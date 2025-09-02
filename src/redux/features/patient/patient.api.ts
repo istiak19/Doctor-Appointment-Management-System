@@ -15,14 +15,31 @@ export const patientApi = baseApi.injectEndpoints({
                 params
             })
         }),
+        getPatientAppointments: builder.query({
+            providesTags: ["appointment"],
+            query: (params) => ({
+                url: "/appointments/patient",
+                method: "GET",
+                params
+            })
+        }),
         createAppointment: builder.mutation({
+            invalidatesTags: ["appointment"],
             query: (appointmentInfo) => ({
                 url: "/appointments",
                 method: "POST",
                 data: appointmentInfo
             })
         }),
+        updateStatus: builder.mutation({
+            invalidatesTags: ["appointment"],
+            query: (appointmentInfo) => ({
+                url: "/appointments",
+                method: "PATCH",
+                data: appointmentInfo
+            })
+        }),
     })
 });
 
-export const { useGetSpecializationsQuery, useGetDoctorsQuery, useCreateAppointmentMutation } = patientApi;
+export const { useGetSpecializationsQuery, useGetDoctorsQuery, useGetPatientAppointmentsQuery, useCreateAppointmentMutation, useUpdateStatusMutation } = patientApi;
