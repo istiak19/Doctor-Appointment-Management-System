@@ -2,17 +2,7 @@
 import { useState } from "react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useGetDoctorAppointmentsQuery, useUpdateStatusMutation } from "@/redux/features/patient/patient.api";
 import { Helmet } from "react-helmet-async";
 import { toast } from 'react-toastify';

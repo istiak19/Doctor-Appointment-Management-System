@@ -22,12 +22,12 @@ const Home = () => {
                     </p>
                     <div className="flex justify-center gap-4">
                         <Link to="/login">
-                            <Button className="bg-white text-blue-500 hover:bg-gray-200">
+                            <Button className="bg-transparent border border-white hover:bg-white hover:text-blue-500 cursor-pointer">
                                 Login
                             </Button>
                         </Link>
                         <Link to="/register">
-                            <Button className="bg-transparent border border-white hover:bg-white hover:text-blue-500">
+                            <Button className="bg-transparent border border-white hover:bg-white hover:text-blue-500 cursor-pointer">
                                 Register
                             </Button>
                         </Link>
