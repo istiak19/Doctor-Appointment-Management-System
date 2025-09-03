@@ -1,8 +1,14 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 
 const Unauthorized = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+            <Helmet>
+                <title>Unauthorized | Doctor Appointment</title>
+                <meta name="description" content="Welcome to Doctor Appointment Unauthorized page" />
+            </Helmet>
+
             <div className="bg-white shadow-lg rounded-2xl p-8 text-center max-w-md">
                 <h1 className="text-4xl font-bold text-red-600 mb-4">403</h1>
                 <h2 className="text-2xl font-semibold mb-2">Unauthorized Access</h2>

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useGetDoctorsQuery, useGetSpecializationsQuery } from "@/redux/features/patient/patient.api";
 import { X } from "lucide-react";
 import BookAppointment from "@/components/modules/BookAppointment";
+import { Helmet } from "react-helmet-async";
 
 const defaultDoctorImg =
     "https://plus.unsplash.com/premium_photo-1658506671316-0b293df7c72b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZG9jdG9yfGVufDB8fDB8fHww";
@@ -35,6 +36,11 @@ const DoctorList = () => {
 
     return (
         <div className="container mx-auto px-4 py-6">
+            <Helmet>
+                <title>Doctor List | Doctor Appointment</title>
+                <meta name="description" content="Welcome to Doctor Appointment doctor list page" />
+            </Helmet>
+
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
 
                 <div className="relative w-full md:w-1/3">

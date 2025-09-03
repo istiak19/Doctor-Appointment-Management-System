@@ -22,14 +22,13 @@ const MyAppointments = () => {
     const [statusFilter, setStatusFilter] = useState<string | undefined>(undefined);
     const [page, setPage] = useState(1);
 
-    const { data, isLoading, refetch } = useGetPatientAppointmentsQuery({ status: statusFilter, page });
+    const { data, isLoading } = useGetPatientAppointmentsQuery({ status: statusFilter, page });
     const [updateStatus] = useUpdateStatusMutation();
 
     const handleCancel = async (appointmentId: string) => {
         try {
             await updateStatus({ appointment_id: appointmentId, status: "CANCELLED" }).unwrap();
             toast.success("Appointment cancelled successfully!");
-            refetch(); // UI আপডেট
         } catch (err) {
             console.error("Failed to cancel appointment", err);
             toast.error("Failed to cancel appointment!");
@@ -104,9 +103,9 @@ const MyAppointments = () => {
                                                 </AlertDialogHeader>
                                                 <AlertDialogFooter>
                                                     <AlertDialogCancel>Back</AlertDialogCancel>
-                                                    <AlertDialogAction 
-                                                    className="cursor-pointer"
-                                                    onClick={() => handleCancel(appointment.id)}>
+                                                    <AlertDialogAction
+                                                        className="cursor-pointer"
+                                                        onClick={() => handleCancel(appointment.id)}>
                                                         Yes, Cancel
                                                     </AlertDialogAction>
                                                 </AlertDialogFooter>
