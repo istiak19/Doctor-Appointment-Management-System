@@ -1,15 +1,15 @@
 import { lazy } from "react";
 
-const DoctorList = lazy(() => import("@/pages/patient/DoctorList"));
+const DoctorDashboard = lazy(() => import("@/pages/doctor/DoctorDashboard"));
 
 export const doctorSidebarRoute = [
     {
         title: "DashBoard",
         items: [
             {
-                title: "Doctor List",
+                title: "Doctor Dashboard",
                 url: "/doctor/dashboard",
-                component: DoctorList
+                component: DoctorDashboard
             },
 
         ],

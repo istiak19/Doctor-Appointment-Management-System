@@ -23,6 +23,14 @@ export const patientApi = baseApi.injectEndpoints({
                 params
             })
         }),
+        getDoctorAppointments: builder.query({
+            providesTags: ["appointment"],
+            query: (params) => ({
+                url: "/appointments/doctor",
+                method: "GET",
+                params
+            })
+        }),
         createAppointment: builder.mutation({
             invalidatesTags: ["appointment"],
             query: (appointmentInfo) => ({
@@ -34,7 +42,7 @@ export const patientApi = baseApi.injectEndpoints({
         updateStatus: builder.mutation({
             invalidatesTags: ["appointment"],
             query: (appointmentInfo) => ({
-                url: "/appointments",
+                url: "/appointments/update-status",
                 method: "PATCH",
                 data: appointmentInfo
             })
@@ -42,4 +50,4 @@ export const patientApi = baseApi.injectEndpoints({
     })
 });
 
-export const { useGetSpecializationsQuery, useGetDoctorsQuery, useGetPatientAppointmentsQuery, useCreateAppointmentMutation, useUpdateStatusMutation } = patientApi;
+export const { useGetSpecializationsQuery, useGetDoctorsQuery, useGetPatientAppointmentsQuery, useGetDoctorAppointmentsQuery, useCreateAppointmentMutation, useUpdateStatusMutation } = patientApi;
