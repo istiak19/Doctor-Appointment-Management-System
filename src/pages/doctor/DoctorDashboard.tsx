@@ -51,62 +51,62 @@ const DoctorDashboard = () => {
         <div className="container mx-auto px-4 py-6">
             <h1 className="text-2xl font-bold mb-4 text-blue-500">Doctor Dashboard</h1>
 
-            {/* Filters */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-
-                <Popover>
-                    <PopoverTrigger asChild>
-                        <Button
-                            variant="outline"
-                            className="w-full md:w-1/4 justify-start text-left font-normal"
-                        >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {dateObj ? format(dateObj, "PPP") : <span>Pick a date</span>}
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                            mode="single"
-                            selected={dateObj}
-                            onSelect={(date) => {
-                                setDateObj(date || undefined);
-                                setDateFilter(date ? format(date, "yyyy-MM-dd") : "");
-                            }}
-                            initialFocus
-                        />
-                    </PopoverContent>
-                </Popover>
-
-                <Select
-                    value={statusFilter ?? ""}
-                    onValueChange={(val) => setStatusFilter(val || undefined)}
-                >
-                    <SelectTrigger className="w-full md:w-1/4">
-                        <SelectValue placeholder="Filter by status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="PENDING">Pending</SelectItem>
-                        <SelectItem value="COMPLETED">Completed</SelectItem>
-                        <SelectItem value="CANCELLED">Cancelled</SelectItem>
-                    </SelectContent>
-                </Select>
-
-                <Button
-                    variant="outline"
-                    onClick={() => {
-                        setDateObj(undefined);
-                        setDateFilter("");
-                        setStatusFilter(undefined);
-                    }}
-                >
-                    Clear Filters
-                </Button>
-            </div>
-
             {data?.data?.length === 0 ? (
                 <p className="text-center text-gray-500 py-10">No appointments found</p>
             ) : (
                 <>
+                    {/* Filters */}
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className="w-full md:w-1/4 justify-start text-left font-normal"
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {dateObj ? format(dateObj, "PPP") : <span>Pick a date</span>}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar
+                                    mode="single"
+                                    selected={dateObj}
+                                    onSelect={(date) => {
+                                        setDateObj(date || undefined);
+                                        setDateFilter(date ? format(date, "yyyy-MM-dd") : "");
+                                    }}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+
+                        <Select
+                            value={statusFilter ?? ""}
+                            onValueChange={(val) => setStatusFilter(val || undefined)}
+                        >
+                            <SelectTrigger className="w-full md:w-1/4">
+                                <SelectValue placeholder="Filter by status" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="PENDING">Pending</SelectItem>
+                                <SelectItem value="COMPLETED">Completed</SelectItem>
+                                <SelectItem value="CANCELLED">Cancelled</SelectItem>
+                            </SelectContent>
+                        </Select>
+
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                setDateObj(undefined);
+                                setDateFilter("");
+                                setStatusFilter(undefined);
+                            }}
+                        >
+                            Clear Filters
+                        </Button>
+                    </div>
+
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {data?.data?.map((appointment: any) => (
                             <div

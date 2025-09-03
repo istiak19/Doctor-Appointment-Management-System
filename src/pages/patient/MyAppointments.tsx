@@ -28,84 +28,90 @@ const MyAppointments = () => {
 
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">My Appointments</h1>
+            <h1 className="text-3xl font-bold text-blue-500 mb-6">My Appointments</h1>
 
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                <div className="flex gap-4 items-center">
-                    <Select onValueChange={(val: any) => setStatusFilter(val)} value={statusFilter}>
-                        <SelectTrigger className="w-48">
-                            <SelectValue placeholder="Filter by status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="PENDING">Pending</SelectItem>
-                            <SelectItem value="COMPLETED">Completed</SelectItem>
-                            <SelectItem value="CANCELLED">Cancelled</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <Button
-                        variant="outline"
-                        onClick={() => setStatusFilter(undefined)}
-                        className="cursor-pointer"
-                    >Clear Filter</Button>
-                </div>
-                <p className="text-gray-600">Showing {data?.data?.length || 0} appointments</p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {data?.data?.map((appointment: any) => (
-                    <div
-                        key={appointment.id}
-                        className="bg-white shadow-md hover:shadow-lg transition-shadow rounded-lg p-4 flex flex-col justify-between h-full"
-                    >
-                        <div className="mb-4">
-                            <p className="text-gray-700 font-semibold">Doctor: <span className="font-normal">{appointment.doctor.name}</span></p>
-                            <p className="text-gray-700 font-semibold">Date: <span className="font-normal">{format(new Date(appointment.date), "PPP")}</span></p>
-                            <p className="text-gray-700 font-semibold">Status: <span className={`font-normal ${appointment.status === "PENDING" ? "text-yellow-600" : appointment.status === "COMPLETED" ? "text-green-600" : "text-red-600"}`}>{appointment.status}</span></p>
+            {
+                data?.data?.length === 0 ? (
+                    <p className="text-center text-gray-500 py-10">No appointments found</p>
+                ) : (<>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                        <div className="flex gap-4 items-center">
+                            <Select onValueChange={(val: any) => setStatusFilter(val)} value={statusFilter}>
+                                <SelectTrigger className="w-48">
+                                    <SelectValue placeholder="Filter by status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="PENDING">Pending</SelectItem>
+                                    <SelectItem value="COMPLETED">Completed</SelectItem>
+                                    <SelectItem value="CANCELLED">Cancelled</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <Button
+                                variant="outline"
+                                onClick={() => setStatusFilter(undefined)}
+                                className="cursor-pointer"
+                            >Clear Filter</Button>
                         </div>
-                        <div className="mt-auto">
-                            {appointment.status === "PENDING" && (
-                                <Button
-                                    variant="destructive"
-                                    className="w-full cursor-pointer"
-                                    onClick={() => handleCancel(appointment.id)}
-                                >
-                                    Cancel Appointment
-                                </Button>
-                            )}
-                        </div>
+                        <p className="text-gray-600">Showing {data?.data?.length || 0} appointments</p>
                     </div>
-                ))}
-            </div>
 
-            <div className="flex justify-center items-center gap-2 mt-6 flex-wrap">
-                <Button
-                    variant="outline"
-                    disabled={page === 1}
-                    onClick={() => setPage((p) => p - 1)}
-                >
-                    Previous
-                </Button>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {data?.data?.map((appointment: any) => (
+                            <div
+                                key={appointment.id}
+                                className="bg-white shadow-md hover:shadow-lg transition-shadow rounded-lg p-4 flex flex-col justify-between h-full"
+                            >
+                                <div className="mb-4">
+                                    <p className="text-gray-700 font-semibold">Doctor: <span className="font-normal">{appointment.doctor.name}</span></p>
+                                    <p className="text-gray-700 font-semibold">Date: <span className="font-normal">{format(new Date(appointment.date), "PPP")}</span></p>
+                                    <p className="text-gray-700 font-semibold">Status: <span className={`font-normal ${appointment.status === "PENDING" ? "text-yellow-600" : appointment.status === "COMPLETED" ? "text-green-600" : "text-red-600"}`}>{appointment.status}</span></p>
+                                </div>
+                                <div className="mt-auto">
+                                    {appointment.status === "PENDING" && (
+                                        <Button
+                                            variant="destructive"
+                                            className="w-full cursor-pointer"
+                                            onClick={() => handleCancel(appointment.id)}
+                                        >
+                                            Cancel Appointment
+                                        </Button>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
-                {Array.from({ length: data?.totalPages || 1 }, (_, i) => (
-                    <Button
-                        key={i}
-                        className="cursor-pointer"
-                        variant={i + 1 === page ? "default" : "outline"}
-                        onClick={() => setPage(i + 1)}
-                    >
-                        {i + 1}
-                    </Button>
-                ))}
+                    <div className="flex justify-center items-center gap-2 mt-6 flex-wrap">
+                        <Button
+                            variant="outline"
+                            disabled={page === 1}
+                            onClick={() => setPage((p) => p - 1)}
+                        >
+                            Previous
+                        </Button>
 
-                <Button
-                    variant="outline"
-                    className="cursor-pointer"
-                    disabled={page === data?.totalPages}
-                    onClick={() => setPage((p) => p + 1)}
-                >
-                    Next
-                </Button>
-            </div>
+                        {Array.from({ length: data?.totalPages || 1 }, (_, i) => (
+                            <Button
+                                key={i}
+                                className="cursor-pointer"
+                                variant={i + 1 === page ? "default" : "outline"}
+                                onClick={() => setPage(i + 1)}
+                            >
+                                {i + 1}
+                            </Button>
+                        ))}
+
+                        <Button
+                            variant="outline"
+                            className="cursor-pointer"
+                            disabled={page === data?.totalPages}
+                            onClick={() => setPage((p) => p + 1)}
+                        >
+                            Next
+                        </Button>
+                    </div>
+                </>
+                )}
         </div>
     );
 };
