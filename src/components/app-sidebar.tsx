@@ -32,7 +32,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader className="pl-5">
-        <NavLink to="/" className="flex items-center gap-2 text-red-500 hover:text-red-500 transition">
+        <NavLink to="/" className="flex items-center gap-2 text-blue-500 hover:text-blue-500 transition">
           <Logo />
           <span className="text-lg font-semibold tracking-wide">
             Doctor Appointment
@@ -52,7 +52,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <NavLink
                         to={item.url}
                         className={`block w-full px-3 py-2 rounded-md transition-colors duration-200 ease-in-out ${isActiveRoute(item.url)
-                          ? "text-red-500 font-semibold bg-red-100 dark:bg-red-900/30"
+                          ? "text-blue-500 font-semibold bg-blue-100 dark:bg-blue-900/30"
                           : "text-foreground hover:text-foreground hover:bg-gray-700 dark:hover:bg-gray-700/50"
                           }`}
                       >
